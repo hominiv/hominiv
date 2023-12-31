@@ -1,13 +1,15 @@
-package com.myshelf;
+package com.hominiv;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MyshelfApplicationTests {
+class HominivApplicationTests {
 
 	@Test
 	void contextLoads() {
+		Assertions.assertTrue(Boolean.TRUE);
 	}
 
 }

@@ -8,12 +8,12 @@
 		<version>3.2.1</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.myshelf</groupId>
-	<artifactId>myshelf</artifactId>
+	<groupId>com.hominiv</groupId>
+	<artifactId>hominiv</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>myshelf</name>
-	<description>myshelf</description>
+	<name>hominiv</name>
+	<description>hominiv</description>
 	<properties>
 		<java.version>21</java.version>
 		<hilla.version>2.5.5</hilla.version>

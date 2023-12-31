@@ -1,13 +1,13 @@
-package com.myshelf;
+package com.hominiv;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MyshelfApplication {
+public class HominivApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MyshelfApplication.class, args);
+		SpringApplication.run(HominivApplication.class, args);
 	}
 
 }
