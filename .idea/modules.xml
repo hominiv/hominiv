@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$USER_HOME$/myshelf.iml" filepath="$USER_HOME$/myshelf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/hominiv.iml" filepath="$PROJECT_DIR$/.idea/hominiv.iml" />
     </modules>
   </component>
 </project>
