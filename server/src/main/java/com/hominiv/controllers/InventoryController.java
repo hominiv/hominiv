@@ -2,10 +2,9 @@ package com.hominiv.controllers;
 
 import com.hominiv.records.Person;
 import com.hominiv.services.PersonService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.coyote.BadRequestException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLClientInfoException;
 import java.util.List;
@@ -25,8 +24,35 @@ public class InventoryController {
     }
 
     @PutMapping("/him")
-    public Person createPerson(
-            @RequestBody() Person person) throws SQLClientInfoException {
-        return personService.createPerson(person);
+    public ResponseEntity<Person> createPerson(
+            @RequestBody() final Person person) {
+        try {
+            return ResponseEntity.ok(personService.createPerson(person));
+        } catch (SQLClientInfoException sqlie) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    @PatchMapping("/him/{userId}")
+    public ResponseEntity<Person> updatePerson(
+            @PathVariable(name = "userId") final Long userId,
+            @RequestParam(name = "isHim") final Boolean isHim) {
+        try {
+            return ResponseEntity.ok(personService.updatePerson(userId, isHim));
+        } catch (BadRequestException bre) {
+            return ResponseEntity.badRequest().build();
+        } catch (SQLClientInfoException sqlcie) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    @DeleteMapping("/him/{userId}")
+    public ResponseEntity<Person> deletePerson(
+            @PathVariable(name = "userId") final Long userId) {
+        try {
+            return ResponseEntity.ok(personService.deletePerson(userId));
+        } catch (BadRequestException bre) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
