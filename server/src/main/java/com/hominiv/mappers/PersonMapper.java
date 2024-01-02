@@ -9,6 +9,7 @@ public class PersonMapper {
 
     public static Person mapPersonDataObjectToPersonRecord(final PersonDO personDO) {
         return new Person(
+                personDO.getUserId(),
                 personDO.getIsHim(),
                 personDO.getFirstName(),
                 personDO.getLastName());
