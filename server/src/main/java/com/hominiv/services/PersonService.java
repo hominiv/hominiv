@@ -11,7 +11,7 @@ public interface PersonService {
 
     Person createPerson(final Person person) throws SQLClientInfoException;
 
-    Person updatePerson(final Person person) throws SQLClientInfoException, BadRequestException;
+    Person updatePerson(final Long userId, final Boolean isHim) throws SQLClientInfoException, BadRequestException;
 
     Person deletePerson(final Long userId) throws BadRequestException;
 }

@@ -33,11 +33,12 @@ public class InventoryController {
         }
     }
 
-    @PatchMapping("/him")
+    @PatchMapping("/him/{userId}")
     public ResponseEntity<Person> updatePerson(
-            @RequestBody() final Person person) {
+            @PathVariable(name = "userId") final Long userId,
+            @RequestParam(name = "isHim") final Boolean isHim) {
         try {
-            return ResponseEntity.ok(personService.updatePerson(person));
+            return ResponseEntity.ok(personService.updatePerson(userId, isHim));
         } catch (BadRequestException bre) {
             return ResponseEntity.badRequest().build();
         } catch (SQLClientInfoException sqlcie) {

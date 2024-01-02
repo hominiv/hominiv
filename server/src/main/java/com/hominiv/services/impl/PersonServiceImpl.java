@@ -38,12 +38,14 @@ class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person updatePerson(final Person person) throws SQLClientInfoException, BadRequestException {
-        return switch (personRepository.findById(person.userId()).orElse(null)) {
-            case PersonDO ignored ->
-                    Optional.of(personRepository.saveAndFlush(PersonMapper.mapPersonRecordToPersonDataObject(person)))
-                            .map(PersonMapper::mapPersonDataObjectToPersonRecord)
-                            .orElseThrow(SQLClientInfoException::new);
+    public Person updatePerson(final Long userId, final Boolean isHim) throws SQLClientInfoException, BadRequestException {
+        return switch (personRepository.findById(userId).orElse(null)) {
+            case PersonDO pDO -> {
+                pDO.setIsHim(isHim);
+                yield Optional.of(personRepository.saveAndFlush(pDO))
+                    .map(PersonMapper::mapPersonDataObjectToPersonRecord)
+                    .orElseThrow(SQLClientInfoException::new);
+            }
             case null ->
                     throw new BadRequestException();
         };
