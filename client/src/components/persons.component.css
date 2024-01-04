@@ -1,0 +1,17 @@
+.label {
+    margin-right: 25px;
+}
+
+.inputs {
+    margin-top: 100px;
+}
+
+.button {
+    height: 60px;
+    width: 70px;
+    transform: translate(50%);
+}
+
+input, label {
+    display: block;
+}

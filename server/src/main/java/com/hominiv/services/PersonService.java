@@ -7,7 +7,9 @@ import java.sql.SQLClientInfoException;
 import java.util.List;
 
 public interface PersonService {
-    List<Person> getPersons();
+    List<Person> getPersons(final Boolean isHim);
+
+    Person getPersonByUserId(final Long userId) throws BadRequestException;
 
     Person createPerson(final Person person) throws SQLClientInfoException;
 

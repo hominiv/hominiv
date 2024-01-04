@@ -10,6 +10,7 @@ import java.sql.SQLClientInfoException;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class InventoryController {
 
     private final PersonService personService;
@@ -19,8 +20,19 @@ public class InventoryController {
     }
 
     @GetMapping("/him")
-    public List<Person> getPersons() {
-        return personService.getPersons();
+    public List<Person> getPersons(
+        @RequestParam(name = "isHim", required = false) final Boolean isHim) {
+        return personService.getPersons(isHim);
+    }
+
+    @GetMapping("/him/{userId}")
+    public ResponseEntity<Person> getPersonByUserId(
+        @PathVariable(name = "userId") final Long userId) {
+        try {
+            return ResponseEntity.ok(personService.getPersonByUserId(userId));
+        } catch (BadRequestException bre) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PutMapping("/him")
