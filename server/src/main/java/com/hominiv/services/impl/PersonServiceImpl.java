@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLClientInfoException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Component("personService")
@@ -24,10 +25,22 @@ class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List<Person> getPersons() {
+    public List<Person> getPersons(final Boolean isHim) {
+        if (Objects.nonNull(isHim)) {
+            return personRepository.getPersonsByIsHimStatus(isHim).stream()
+                .map(PersonMapper::mapPersonDataObjectToPersonRecord)
+                .toList();
+        }
         return personRepository.findAll().stream()
                 .map(PersonMapper::mapPersonDataObjectToPersonRecord)
                 .toList();
+    }
+
+    @Override
+    public Person getPersonByUserId(final Long userId) throws BadRequestException {
+        return personRepository.findById(userId)
+            .map(PersonMapper::mapPersonDataObjectToPersonRecord)
+            .orElseThrow(BadRequestException::new);
     }
 
     @Override
