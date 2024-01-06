@@ -13,4 +13,8 @@ export const ApiService = {
     addPerson(person: Person): Promise<AxiosResponse> {
         return axios.put(LOCAL_URL + PERSONS_URL, person);
     },
+
+    removePerson(userId: number): Promise<AxiosResponse> {
+        return axios.delete(LOCAL_URL + PERSONS_URL + "/" + userId);
+    }
 }

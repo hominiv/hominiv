@@ -12,7 +12,7 @@ export class PersonsComponent extends React.Component<any, any>{
         lastName: string,
         status: boolean };
 
-    constructor(props: null) {
+    constructor(props: any) {
         super(props);
         this.state = {
             persons: [],
@@ -22,31 +22,72 @@ export class PersonsComponent extends React.Component<any, any>{
         };
     }
 
-    async componentDidMount() {
-        await ApiService.getPersons().then((response: AxiosResponse) => {
-            this.setState({...this.state, persons: response.data});
+    async componentDidMount(): Promise<void> {
+        await this.getRows();
+    }
+    async componentDidUpdate(): Promise<void> {
+        await this.getRows();
+    }
+
+    async getRows() {
+        await ApiService.getPersons().then((response: AxiosResponse): void => {
+            this.setState((prevState: any) => ({...prevState, persons: response.data}));
         });
     }
 
-    addRow(): void {
+    mountRows(): React.JSX.Element[] {
+        // For some reason React doesn't initialize the persons value
+        // as an array. Wait for the function to be called again after
+        // proper initialization has occurred...
+        if (Array.isArray(this.state.persons)) {
+            return (
+                this.state.persons.map(
+                    (person: Person) =>
+                        <tr key={person.userId}>
+                            <td>{person.isHim.toString()}</td>
+                            <td>{person.firstName}</td>
+                            <td>{person.lastName}</td>
+                            <td>
+                                <button type={"submit"} onClick={(): void => {
+                                    this.delete(person.userId)
+                                }}></button>
+                            </td>
+                        </tr>
+                )
+            )
+        } else {
+            return [];
+        }
+    }
 
-        ApiService.addPerson({
+    addRow(): void {
+        let person: Person = {
             userId: 0,
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             isHim: this.state.status
-        }).then((response: AxiosResponse) => {
-            // TODO: render this dynamically...
-            this.setState({
-                persons: this.state.persons.push(response.data),
+        }
+        ApiService.addPerson(person).then((response: AxiosResponse): void => {
+            this.setState((prevState: any) => ({
+                persons: prevState.persons.push(response.data),
                 firstName: "",
                 lastName: "",
                 status: false
-            });
+            }));
         });
     }
 
-    render() {
+    delete(userId: number): void {
+        ApiService.removePerson(userId).then((response: AxiosResponse): void => {
+            let people: Person[] = this.state.persons;
+            this.setState((prevState: any) => ({
+                ...prevState,
+                persons: people.filter((p: Person) => p.userId !== response.data)
+            }));
+        });
+    }
+
+    render(): React.JSX.Element {
         return (
             <>
                 <h1>Who is him?</h1>
@@ -58,29 +99,23 @@ export class PersonsComponent extends React.Component<any, any>{
                         <td>Last Name</td>
                     </tr>
                     </thead>
-                    <tbody>{this.state.persons.map((person: Person) =>
-                        <tr key={person.userId}>
-                            <td>{person.isHim.toString()}</td>
-                            <td>{person.firstName}</td>
-                            <td>{person.lastName}</td>
-                        </tr>
-                    )}</tbody>
+                    <tbody>{this.mountRows()}</tbody>
                 </table>
                 <div className={"input-group-lg input-group-text inputs"}>
                     <div className={"input-group-text"}>
-                        <label htmlFor={"first-name"} className={"label"}>First Name: </label>
-                        <input id={"first-name"} onChange={e =>
-                            this.setState({...this.state, firstName: e.target.value})} type={"text"}/>
+                        <label htmlFor={"first-name"} className={"label"}>First Name:</label>
+                        <input id={"first-name"} value={this.state.firstName} onChange={e =>
+                            this.setState((prevState: any) => ({...prevState, firstName: e.target.value}))} type={"text"}/>
                     </div>
                     <div className={"input-group-text"}>
                         <label htmlFor={"last-name"} className={"label"}>Last Name:</label>
-                        <input id={"last-name"} onChange={e =>
-                            this.setState({...this.state, lastName: e.target.value})} type={"text"}/>
+                        <input id={"last-name"} value={this.state.lastName} onChange={e =>
+                            this.setState((prevState: any) => ({...prevState, lastName: e.target.value}))} type={"text"}/>
                     </div>
                     <div className={"input-group-text"}>
                         <label htmlFor={"is-him"} className={"label"}>Is Him?</label>
                         <input id={"is-him"} onChange={() =>
-                            this.setState({...this.state, status: !this.state?.status})} type={"checkbox"}/>
+                            this.setState((prevState: any) => ({...prevState, status: !prevState.status}))} type={"checkbox"}/>
                     </div>
                     <div className={"button button-group"}>
                         <button type={"submit"} onClick={() => this.addRow()} className={"button"}>Submit</button>
