@@ -10,7 +10,6 @@ import lombok.Setter;
 @Table(name = "persons")
 public class PersonDO {
     @Id
-    @SequenceGenerator(name = "user_id", sequenceName = "user_id", initialValue = 12)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", insertable = false, updatable = false)
     Long userId;
