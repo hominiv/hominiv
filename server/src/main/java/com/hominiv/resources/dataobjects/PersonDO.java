@@ -4,6 +4,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * @Entity - Hibernate annotation declaring this class a database entity.
+ *
+ * @Getter,
+ * @Setter - Getter and setter are from project lombok. They just generate some getter and setter methods for us
+ *
+ * @Table - indicates the name of the table in our database
+ */
 @Entity
 @Getter
 @Setter
