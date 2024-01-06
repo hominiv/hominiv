@@ -7,6 +7,11 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+/**
+ * @SpringBootApplication - the main entry point of our service. This is where Spring
+ * 							starts its initialization of all our different components
+ * 							and services, preparing them for use.
+ */
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
 
@@ -19,6 +24,10 @@ public class Application extends SpringBootServletInitializer {
 		return application.sources(Application.class);
 	}
 
+	/**
+	 * I'm not even sure these are necessary for our use case, but if so they're
+	 * letting spring know where to find repositories and database entities.
+	 */
 	@EnableJpaRepositories(basePackages = "com.hominiv.resources.repositories")
 	@EntityScan(basePackages = "com.hominiv.resources.dataobjects")
 	public class DataConfiguration {}

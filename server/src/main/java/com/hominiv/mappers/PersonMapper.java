@@ -4,6 +4,11 @@ import com.hominiv.records.Person;
 import com.hominiv.resources.dataobjects.PersonDO;
 import lombok.experimental.UtilityClass;
 
+/**
+ * This isn't a Spring annotation. @UtilityClass is provided by project lombok.
+ * Essentially it's just clearing some errors and preventing this class from ever
+ * being instantiated. All static methods are expected with this.
+ */
 @UtilityClass
 public class PersonMapper {
 
