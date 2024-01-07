@@ -1,3 +1,4 @@
+/* (C)2024 */
 package com.hominiv.mappers;
 
 import com.hominiv.records.Person;

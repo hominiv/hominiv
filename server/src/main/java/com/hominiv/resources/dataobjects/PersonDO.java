@@ -1,3 +1,4 @@
+/* (C)2024 */
 package com.hominiv.resources.dataobjects;
 
 import jakarta.persistence.*;

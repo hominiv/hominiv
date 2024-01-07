@@ -1,11 +1,11 @@
+/* (C)2024 */
 package com.hominiv.resources.repositories;
 
 import com.hominiv.resources.dataobjects.PersonDO;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * @Repository - declares the interface a host for different queries and database commands

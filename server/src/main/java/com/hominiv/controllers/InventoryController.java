@@ -1,13 +1,13 @@
+/* (C)2024 */
 package com.hominiv.controllers;
 
 import com.hominiv.records.Person;
 import com.hominiv.services.PersonService;
+import java.sql.SQLClientInfoException;
+import java.util.List;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.SQLClientInfoException;
-import java.util.List;
 
 /**
  * This is a rest controller, aka the home of our HTTP endpoints.
@@ -53,27 +53,27 @@ public class InventoryController {
      */
     @GetMapping("/him")
     public List<Person> getPersons(
-        /**
-         * @RequestParam - allows Spring to automatically deserialize request params from
-         *                 the request (remember - "?paramName=paramValue&...")
-         */
-        @RequestParam(name = "isHim", required = false) final Boolean isHim) {
+            /**
+             * @RequestParam - allows Spring to automatically deserialize request params from
+             *                 the request (remember - "?paramName=paramValue&...")
+             */
+            @RequestParam(name = "isHim", required = false) final Boolean isHim) {
         return personService.getPersons(isHim);
     }
 
     @GetMapping("/him/{userId}")
     public ResponseEntity<Person> getPersonByUserId(
-        /**
-         * @PathVariable - here, defined in the {userId} part of the @GetMapping value.
-         *                 This is just a unique value that we pass into our request
-         *                 without any other parameter context. We assume the client
-         *                 knows what this should be, and it's always required
-         * <p>
-         * Note: path variables are good to use with hidden values, like "userId" on our
-         *       person object. This obfuscates some of the details about the request from
-         *       would be "attackers"
-         */
-        @PathVariable(name = "userId") final Long userId) {
+            /**
+             * @PathVariable - here, defined in the {userId} part of the @GetMapping value.
+             *                 This is just a unique value that we pass into our request
+             *                 without any other parameter context. We assume the client
+             *                 knows what this should be, and it's always required
+             * <p>
+             * Note: path variables are good to use with hidden values, like "userId" on our
+             *       person object. This obfuscates some of the details about the request from
+             *       would be "attackers"
+             */
+            @PathVariable(name = "userId") final Long userId) {
         try {
             return ResponseEntity.ok(personService.getPersonByUserId(userId));
         } catch (BadRequestException bre) {
@@ -83,10 +83,10 @@ public class InventoryController {
 
     @PutMapping("/him")
     public ResponseEntity<Person> createPerson(
-        /**
-         * @RequestBody - indicates a type used in the body of our HTTP request. Spring
-         *                handles the JSON serialization/deserialization for us nowadays.
-         */
+            /**
+             * @RequestBody - indicates a type used in the body of our HTTP request. Spring
+             *                handles the JSON serialization/deserialization for us nowadays.
+             */
             @RequestBody() final Person person) {
         try {
             return ResponseEntity.ok(personService.createPerson(person));
@@ -109,8 +109,7 @@ public class InventoryController {
     }
 
     @DeleteMapping("/him/{userId}")
-    public ResponseEntity<Person> deletePerson(
-            @PathVariable(name = "userId") final Long userId) {
+    public ResponseEntity<Person> deletePerson(@PathVariable(name = "userId") final Long userId) {
         try {
             return ResponseEntity.ok(personService.deletePerson(userId));
         } catch (BadRequestException bre) {

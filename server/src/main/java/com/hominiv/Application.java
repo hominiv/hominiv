@@ -1,3 +1,4 @@
+/* (C)2024 */
 package com.hominiv;
 
 import org.springframework.boot.SpringApplication;
@@ -15,20 +16,20 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 public class Application extends SpringBootServletInitializer {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-		return application.sources(Application.class);
-	}
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(Application.class);
+    }
 
-	/**
-	 * I'm not even sure these are necessary for our use case, but if so they're
-	 * letting spring know where to find repositories and database entities.
-	 */
-	@EnableJpaRepositories(basePackages = "com.hominiv.resources.repositories")
-	@EntityScan(basePackages = "com.hominiv.resources.dataobjects")
-	public class DataConfiguration {}
+    /**
+     * I'm not even sure these are necessary for our use case, but if so they're
+     * letting spring know where to find repositories and database entities.
+     */
+    @EnableJpaRepositories(basePackages = "com.hominiv.resources.repositories")
+    @EntityScan(basePackages = "com.hominiv.resources.dataobjects")
+    public class DataConfiguration {}
 }
