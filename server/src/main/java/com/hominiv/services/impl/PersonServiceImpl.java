@@ -6,7 +6,7 @@ import com.hominiv.resources.dataobjects.PersonDO;
 import com.hominiv.resources.repositories.PersonRepository;
 import com.hominiv.services.PersonService;
 import org.apache.coyote.BadRequestException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLClientInfoException;
@@ -14,7 +14,15 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-@Component("personService")
+/**
+ * @Service - generates a Spring bean of the annotated class, thus allowing it to be
+ *            autowired into other components of our service
+ *
+ * @Transactional - indicates the annotated component as transaction based, meaning
+ *                  data changes won't be committed in the event of any failures. This
+ *                  is particularly useful in long streams of data fetching / mutating / storing
+ */
+@Service
 @Transactional
 class PersonServiceImpl implements PersonService {
 
